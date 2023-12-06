@@ -1,0 +1,49 @@
+@import "../../styles/vars.scss";
+
+.wrapper {
+  gap: 24px;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  padding: 0 18px;
+  flex-direction: column;
+  justify-content: start;
+  @extend %flex-center-start;
+
+  &__firstSection {
+    width: 100%;
+    @extend %flex-center-between;
+  }
+
+  &__inputs {
+    gap: 6px;
+    width: 100%;
+    flex-direction: column;
+    @extend %flex-center-center;
+  }
+  &__phoneNumbers {
+    gap: 6px;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+
+    &__inputHolder {
+      width: 100%;
+      @extend %flex-center-center;
+    }
+  }
+
+  &__emails {
+    gap: 6px;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+
+    &__inputHolder {
+      width: 100%;
+      @extend %flex-center-center;
+    }
+  }
+}

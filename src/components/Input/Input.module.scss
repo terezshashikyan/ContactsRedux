@@ -1,0 +1,14 @@
+@import "../../styles/vars.scss";
+
+.wrapper {
+  width: 100%;
+  padding: $padding;
+
+  &__input {
+    width: 100%;
+    padding: $padding;
+    border-radius: 12px;
+    @extend %base-font-size;
+    border: 1px solid $secondary-color;
+  }
+}

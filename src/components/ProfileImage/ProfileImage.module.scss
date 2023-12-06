@@ -1,0 +1,21 @@
+@import '../../styles/vars.scss';
+
+.wrapper {
+    @extend %flex-center-center;
+    &__img {
+    display: block;
+    object-fit: cover;
+    border-radius: 50%;
+    @extend %flex-center-center;
+    border: 2px solid $secondary-color;
+}
+};
+
+.small {
+    width: 20px;
+    height: 20px; 
+}
+.large {
+    width: 120px;
+    height: 120px; 
+}

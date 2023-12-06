@@ -1,0 +1,26 @@
+@import "../../styles/vars.scss";
+
+.wrapper {
+  gap: 12px;
+  width: 100%;
+  flex-direction: column;
+  @extend %flex-center-center;
+  &__img {
+    width: 120px;
+    height: 120px;
+    display: block;
+    object-fit: cover;
+    padding: $padding;
+    border-radius: 50%;
+    @extend %flex-center-center;
+    border: 2px solid $secondary-color;
+  }
+
+  &__label {
+    @extend %button-font-size;
+  }
+
+  &__label:hover {
+    color: $secondary-color;
+  }
+}

@@ -1,0 +1,10 @@
+@import "../../styles/vars.scss";
+
+.h3 {
+  font-size: 34px;
+  font-weight: 600;
+  padding: $padding;
+  font-family: Roboto;
+  color: $primary-color;
+  letter-spacing: 0.72px;
+}
