@@ -3,8 +3,7 @@ import { Outlet } from "react-router";
 import { AppDispatch } from "../../store";
 import styles from "./Layout.module.scss";
 import { useDispatch } from "react-redux";
-import { contactsOp } from "../../store/contacts";
-import { getContacts } from "../../store/contacts/reducers";
+import { getContacts } from "../../store/contacts/thunks";
 
 function Layout() {
   const dispatch = useDispatch<AppDispatch>();

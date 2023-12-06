@@ -1,6 +1,7 @@
 import { icon } from "../../assets/images";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { deleteContact } from "../../store/contacts/thunks";
 import { contactsOp, contactsSel } from "../../store/contacts";
 import { Input, Button, Heading, ProfileImageUploader } from "../../components";
 
@@ -31,8 +32,8 @@ const EditContact = () => {
     );
   };
 
-  const deleteContact = () => {
-    dispatch(contactsOp.deleteContact(Number(id)));
+  const delContact = () => {
+    dispatch(deleteContact(Number(id)));
   };
 
   const [company, setCompany] = useState(
@@ -229,7 +230,7 @@ const EditContact = () => {
       <Button
         type="button"
         onClick={() => {
-          deleteContact();
+          delContact();
           navigate("/");
         }}
         children="Delete Contact"

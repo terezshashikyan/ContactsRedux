@@ -1,16 +1,13 @@
 import { IContact } from "../../types";
 import initialState from "./initialState";
-import { getContacts, addContact } from "./reducers";
+import { getContacts, deleteContact } from "./thunks";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export const contactsSlice = createSlice({
   name: "contactsStore",
   initialState,
   reducers: {
-    setContacts: (state, action: PayloadAction<IContact[]>) => {
-      state.contacts = action.payload;
-    },
-
+ 
     setContact: (state, action: PayloadAction<string | number>) => {
       state.contact = state.contacts.filter((contact: IContact) => {
         return contact.id === action.payload;
@@ -19,13 +16,6 @@ export const contactsSlice = createSlice({
 
     addContact: (state, action: PayloadAction<IContact>) => {
       const newContactsList = [action.payload, ...state.contacts];
-      state.contacts = newContactsList;
-    },
-
-    deleteContact: (state, action: PayloadAction<string | number>) => {
-      const newContactsList = state.contacts.filter(
-        (contact) => contact.id !== action.payload
-      );
       state.contacts = newContactsList;
     },
 
@@ -52,6 +42,22 @@ export const contactsSlice = createSlice({
       .addCase(getContacts.rejected, (state, action: any) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(deleteContact.pending, (state, action: any) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteContact.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        const newContactsList = state.contacts.filter(
+          (contact) => contact.id !== action.payload
+        );
+        state.contacts = newContactsList;
+      })
+      .addCase(deleteContact.rejected, (state, action: any) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
   },
 });
