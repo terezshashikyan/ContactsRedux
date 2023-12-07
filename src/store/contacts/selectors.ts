@@ -14,9 +14,8 @@ const contactSelector = createSelector(
   (contactsStore: IContactsInitialState) => contactsStore.contact
 );
 
-
 export const contactsSel = {
-    contactsStoreSelector,
-    contactsSelector,
-    contactSelector,
-  };
+  contactsStoreSelector,
+  contactsSelector,
+  contactSelector,
+};

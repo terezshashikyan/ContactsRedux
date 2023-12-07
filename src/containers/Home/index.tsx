@@ -1,15 +1,13 @@
+import { useState } from "react";
 import { IContact } from "../../types";
-import { AppDispatch } from "../../store";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { contactsOp, contactsSel } from "../../store/contacts";
+import { contactsSel } from "../../store/contacts";
 import { Input, Button, Heading, ContactsList } from "../../components";
 
 import styles from "./Home.module.scss";
 
 const Home = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const [searchInput, setSearchInput] = useState("");
   const contacts = useSelector(contactsSel.contactsSelector);
 

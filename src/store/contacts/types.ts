@@ -6,3 +6,22 @@ export interface IContactsInitialState {
   loading: boolean;
   error: string | null;
 }
+
+export interface IAddContactThunkProps {
+  firstName: string;
+  lastName: string;
+  company: string;
+  phoneNumbers: { id: number; value: string }[] | [];
+  emails: { id: number; value: string }[] | [];
+  selectedImage: any;
+}
+
+export interface IEditContactThunkProps {
+  id: number | string;
+  firstName: string;
+  lastName: string;
+  company: string;
+  phoneNumbers: { id: number; value: string }[] | [];
+  emails: { id: number; value: string }[] | [];
+  selectedImage: any;
+}

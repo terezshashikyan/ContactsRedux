@@ -1,32 +1,16 @@
 import { IContact } from "../../types";
 import initialState from "./initialState";
-import { getContacts, deleteContact } from "./thunks";
+import { getContacts, addContact, editContact, deleteContact } from "./thunks";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export const contactsSlice = createSlice({
   name: "contactsStore",
   initialState,
   reducers: {
- 
-    setContact: (state, action: PayloadAction<string | number>) => {
+    setContact: (state, action: PayloadAction<number>) => {
       state.contact = state.contacts.filter((contact: IContact) => {
         return contact.id === action.payload;
       })[0];
-    },
-
-    addContact: (state, action: PayloadAction<IContact>) => {
-      const newContactsList = [action.payload, ...state.contacts];
-      state.contacts = newContactsList;
-    },
-
-    editContact: (state, action: PayloadAction<IContact>) => {
-      const editedContactsList = state.contacts.map((contact) => {
-        if (contact.id === action.payload.id) {
-          return { ...contact, ...action.payload };
-        }
-        return contact;
-      });
-      state.contacts = editedContactsList;
     },
   },
   extraReducers: (builder) => {
@@ -39,11 +23,11 @@ export const contactsSlice = createSlice({
         state.loading = false;
         state.contacts = action.payload;
       })
-      .addCase(getContacts.rejected, (state, action: any) => {
+      .addCase(getContacts.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(deleteContact.pending, (state, action: any) => {
+      .addCase(deleteContact.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
@@ -54,10 +38,40 @@ export const contactsSlice = createSlice({
         );
         state.contacts = newContactsList;
       })
-      .addCase(deleteContact.rejected, (state, action: any) => {
+      .addCase(deleteContact.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload;
       })
-
+      .addCase(addContact.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addContact.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        const newContactsList = [action.payload, ...state.contacts];
+        state.contacts = newContactsList;
+      })
+      .addCase(addContact.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(editContact.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editContact.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        const editedContactsList = state.contacts.map((contact) => {
+          if (contact.id === action.payload.id) {
+            return { ...contact, ...action.payload };
+          }
+          return contact;
+        });
+        state.contacts = editedContactsList;
+      })
+      .addCase(editContact.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });

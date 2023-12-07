@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { icon } from "../../assets/images";
 import { useNavigate } from "react-router";
-import { contactsOp } from "../../store/contacts";
+import { addContact } from "../../store/contacts/thunks";
 import { Input, Button, Heading, ProfileImageUploader } from "../../components";
 
 import styles from "./AddContact.module.scss";
@@ -75,16 +75,16 @@ const AddContact = () => {
     setPhoneNumbers(newPhoneNumbers);
   };
 
-  const addContact = () => {
+  const addCont = () => {
     dispatch(
-      contactsOp.addContact(
+      addContact({
         firstName,
         lastName,
         company,
         phoneNumbers,
         emails,
-        selectedImage
-      )
+        selectedImage,
+      })
     );
   };
 
@@ -110,7 +110,7 @@ const AddContact = () => {
         <Button
           type="button"
           onClick={() => {
-            addContact();
+            addCont();
             handleNavigation();
           }}
           children="Done"

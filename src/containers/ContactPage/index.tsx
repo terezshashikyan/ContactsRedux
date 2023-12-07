@@ -1,14 +1,13 @@
-import { IContact } from "../../types";
+import { useEffect } from "react";
+import { AppDispatch } from "../../store";
 import { icon } from "../../assets/images";
-import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { contactsOp, contactsSel } from "../../store/contacts";
 import { CallRounded, MailOutlineRounded } from "@mui/icons-material";
 import { Button, ProfileImage, Heading, Paragraph } from "../../components";
 
 import styles from "./ContactPage.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { contactsOp, contactsSel } from "../../store/contacts";
-import { AppDispatch } from "../../store";
 
 const ContactPage = () => {
   const { id } = useParams();
@@ -19,7 +18,7 @@ const ContactPage = () => {
 
   useEffect(() => {
     dispatch(contactsOp.setContact(Number(id)));
-  }, []);
+  }, [contacts]);
 
   const onMailClick = () => {
     if (contact?.email) {

@@ -1,7 +1,7 @@
 import { icon } from "../../assets/images";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { deleteContact } from "../../store/contacts/thunks";
+import { deleteContact, editContact } from "../../store/contacts/thunks";
 import { contactsOp, contactsSel } from "../../store/contacts";
 import { Input, Button, Heading, ProfileImageUploader } from "../../components";
 
@@ -14,26 +14,24 @@ const EditContact = () => {
   const dispatch = useDispatch<AppDispatch>();
   const contact = useSelector(contactsSel.contactSelector);
 
-  useEffect(() => {
-    dispatch(contactsOp.setContact(Number(id)));
-  }, []);
+  useEffect(() => dispatch(contactsOp.setContact(Number(id))), [dispatch, id]);
 
-  const editContact = () => {
+  const editCont = () => {
     dispatch(
-      contactsOp.editContact(
-        Number(id),
+      editContact({
+        id: Number(id),
         firstName,
         lastName,
         company,
         phoneNumbers,
         emails,
-        selectedImage
-      )
+        selectedImage,
+      })
     );
   };
 
   const delContact = () => {
-    dispatch(deleteContact(Number(id)));
+      dispatch(deleteContact(Number(id)));
   };
 
   const [company, setCompany] = useState(
@@ -131,7 +129,7 @@ const EditContact = () => {
         <Button
           type="button"
           onClick={() => {
-            editContact();
+            editCont();
             handleNavigation();
           }}
           children="Done"
@@ -172,7 +170,10 @@ const EditContact = () => {
 
       <div className={styles.wrapper__phoneNumbers}>
         {phoneNumbers.map((phoneNumber) => (
-          <div className={styles.wrapper__phoneNumbers__inputHolder}>
+          <div
+            className={styles.wrapper__phoneNumbers__inputHolder}
+            key={phoneNumber.id}
+          >
             <Input
               type="text"
               placeholder="Phone Number"
@@ -202,7 +203,7 @@ const EditContact = () => {
 
       <div className={styles.wrapper__emails}>
         {emails.map((email) => (
-          <div className={styles.wrapper__emails__inputHolder}>
+          <div className={styles.wrapper__emails__inputHolder} key={email.id}>
             <Input
               type="text"
               placeholder="Email"
